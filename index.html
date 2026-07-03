@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoaBR — 1 Brasil. 1 Missão.</title>
+<meta name="description" content="VoaBR: mobilização digital para as eleições de 2026. Debate político cuidadoso, verdade contra a desinformação, organização no Telegram.">
+<link rel="icon" type="image/png" href="assets/logo-voabr-avatar.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ══════════ Tokens — VoaBR Design System ══════════ */
+  :root {
+    --voa-azul:      #025B70;
+    --voa-amarelo:   #FBAE04;
+    --voa-verde:     #009474;
+    --voa-vermelho:  #E30613;
+    --voa-branco:    #FFFFFF;
+    --voa-preto:     #1A1A1A;
+    --voa-cinza:     #666666;
+
+    --voa-azul-escuro:    #01404F;
+    --voa-azul-claro:     #0A7391;
+    --voa-amarelo-escuro: #E09B00;
+    --voa-verde-escuro:   #007259;
+    --voa-vermelho-escuro:#B8040F;
+    --voa-creme:          #FFF6E4;
+
+    --star-outline: #123A66;
+
+    --font-display: 'Anton', 'Arial Narrow', system-ui, sans-serif;
+    --font-body:    'Roboto', -apple-system, 'Segoe UI', system-ui, sans-serif;
+
+    --space-3: 12px; --space-5: 24px; --space-6: 32px;
+    --space-7: 40px; --space-8: 60px; --space-9: 80px; --space-10: 120px;
+
+    --radius-md: 12px; --radius-lg: 24px; --radius-pill: 999px;
+
+    --shadow-sticker:    6px 6px 0 rgba(0,0,0,.20);
+    --shadow-sticker-lg: 10px 10px 0 rgba(0,0,0,.22);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--voa-preto);
+    background: var(--voa-creme);
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: .95;
+    margin: 0;
+    letter-spacing: .01em;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
+  }
+
+  .section { padding: var(--space-9) 0; position: relative; overflow: hidden; }
+
+  /* ---- Estrela (elemento de marca) ---- */
+  .star { position: absolute; pointer-events: none; z-index: 0; }
+  .star svg { display: block; }
+
+  /* ---- Sublinhado rabiscado (verde) ---- */
+  .scribble { position: relative; white-space: nowrap; }
+  .scribble svg { position: absolute; left:0; bottom:-6px; width:100%; height:14px; }
+
+  /* ---- Botão pill (CTA) ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 18px 36px;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-sticker);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 rgba(0,0,0,.24); }
+  .btn:active { transform: translate(0,0); box-shadow: 3px 3px 0 rgba(0,0,0,.2); }
+  .btn-amarelo { background: var(--voa-amarelo); color: var(--voa-azul); }
+  .btn-branco  { background: var(--voa-branco); color: var(--voa-azul); }
+  .btn-vermelho{ background: var(--voa-vermelho); color: var(--voa-branco); }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+  }
+
+  /* ══════════ Hero ══════════ */
+  .hero {
+    background: var(--voa-azul);
+    color: var(--voa-branco);
+    padding: var(--space-9) 0 var(--space-9);
+    position: relative;
+  }
+  .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; z-index: 0; }
+  .hero-overlay { position: absolute; inset: 0; background: rgba(2,60,74,.62); z-index: 0; }
+  .hero .wrap { display: flex; flex-direction: column; gap: var(--space-6); position: relative; z-index: 1; }
+  .hero-top { display: flex; align-items: center; gap: var(--space-5); }
+  .hero-top img { width: 88px; height: 88px; object-fit: contain; }
+  .hero-brand { font-family: var(--font-display); text-transform: uppercase; font-size: 22px; letter-spacing: .04em; }
+  .hero h1 { font-size: clamp(38px, 6vw, 68px); max-width: 16ch; }
+  .hero p.lede { font-size: clamp(17px, 2vw, 21px); max-width: 60ch; line-height: 1.55; opacity: .92; }
+  .hero .cta-row { display: flex; flex-wrap: wrap; gap: var(--space-5); margin-top: var(--space-3); }
+
+  /* ══════════ O que somos ══════════ */
+  .somos { background: var(--voa-creme); }
+  .somos .wrap { display: flex; flex-direction: column; gap: var(--space-6); }
+  .somos h2 { font-size: clamp(32px, 4vw, 48px); color: var(--voa-azul); }
+  .somos p { font-size: 18px; line-height: 1.65; max-width: 72ch; color: #333; }
+
+  /* ══════════ O que defendemos ══════════ */
+  .defendemos { background: var(--voa-branco); }
+  .defendemos .wrap { display: flex; flex-direction: column; gap: var(--space-7); }
+  .defendemos h2 { font-size: clamp(32px, 4vw, 48px); color: var(--voa-azul); }
+  .defendemos > .wrap > p { font-size: 18px; line-height: 1.65; max-width: 72ch; color: #333; }
+
+  .agendas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); }
+  .agenda-card {
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex; flex-direction: column; gap: var(--space-3);
+    box-shadow: var(--shadow-sticker);
+    color: var(--voa-branco);
+  }
+  .agenda-card:nth-child(1) { background: var(--voa-azul); transform: rotate(-1deg); }
+  .agenda-card:nth-child(2) { background: var(--voa-verde); transform: rotate(.8deg); }
+  .agenda-card:nth-child(3) { background: var(--voa-azul-escuro); transform: rotate(-.6deg); }
+  .agenda-card:nth-child(4) { background: var(--voa-verde-escuro); transform: rotate(1deg); }
+  .agenda-card:nth-child(5) {
+    background: var(--voa-amarelo); color: var(--voa-azul);
+    grid-column: 1 / -1; transform: rotate(-.4deg);
+  }
+  .agenda-num {
+    font-family: var(--font-display);
+    font-size: 15px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .85;
+  }
+  .agenda-card h3 { font-size: 26px; }
+  .agenda-card p { margin: 0; font-size: 15.5px; line-height: 1.55; }
+  .agenda-jogo {
+    margin-top: auto;
+    padding-top: var(--space-3);
+    border-top: 2px solid rgba(255,255,255,.28);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .agenda-card:nth-child(5) .agenda-jogo { border-top-color: rgba(2,91,112,.28); }
+
+  .defendemos .call { font-size: 19px; font-weight: 700; color: var(--voa-azul); max-width: 62ch; }
+
+  /* ══════════ Onde estamos / cadastro ══════════ */
+  .entrar { background: var(--voa-verde); color: var(--voa-branco); }
+  .entrar .wrap { display: flex; flex-direction: column; gap: var(--space-7); position: relative; z-index: 1; }
+  .entrar h2 { font-size: clamp(32px, 4vw, 48px); }
+  .entrar > .wrap > p { font-size: 18px; max-width: 62ch; line-height: 1.6; opacity: .95; }
+
+  .cadastro-box {
+    background: var(--voa-branco);
+    color: var(--voa-preto);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7);
+    box-shadow: var(--shadow-sticker-lg);
+    display: flex; flex-direction: column; gap: var(--space-6);
+  }
+  .cadastro-box h3 { color: var(--voa-azul); font-size: 26px; }
+  .campo { display: flex; flex-direction: column; gap: 8px; }
+  .campo > label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--voa-cinza); }
+  .campo input[type="text"], .campo input[type="tel"] {
+    font-family: var(--font-body);
+    font-size: 16px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(2,91,112,.18);
+    background: var(--voa-creme);
+  }
+  .campo input:focus { outline: 3px solid var(--voa-amarelo); }
+
+  .eixos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
+  .eixo-opcao {
+    display: flex; align-items: center; gap: 10px;
+    border: 2px solid rgba(2,91,112,.18);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-size: 14.5px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .eixo-opcao:has(input:checked) { border-color: var(--voa-verde); background: rgba(0,148,116,.08); }
+  .eixo-opcao input { accent-color: var(--voa-verde); width: 18px; height: 18px; }
+
+  .cadastro-nota { font-size: 13.5px; color: var(--voa-cinza); line-height: 1.5; }
+
+  .foto-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sticker-lg);
+    transform: rotate(-1.4deg);
+    max-width: 420px;
+    border: 6px solid var(--voa-branco);
+  }
+  .foto-card img { width: 100%; height: 280px; object-fit: cover; object-position: center 25%; display: block; }
+
+  .redes { display: flex; gap: var(--space-5); flex-wrap: wrap; align-items: center; }
+  .rede-link { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; text-decoration: none; color: var(--voa-branco); opacity: .92; }
+  .rede-link:hover { opacity: 1; text-decoration: underline; }
+
+  /* ══════════ Datas importantes ══════════ */
+  .datas { background: var(--voa-creme); }
+  .datas h2 { font-size: clamp(32px, 4vw, 48px); color: var(--voa-azul); }
+  .datas .wrap { display: flex; flex-direction: column; gap: var(--space-7); }
+  .datas > .wrap > p { font-size: 17px; color: #444; max-width: 60ch; }
+
+  .timeline { display: flex; flex-wrap: wrap; gap: var(--space-5); }
+  .marco {
+    flex: 1 1 200px;
+    background: var(--voa-branco);
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(2,91,112,.1);
+    padding: var(--space-5);
+    display: flex; flex-direction: column; gap: 6px;
+    box-shadow: var(--shadow-sticker);
+  }
+  .marco.agora { background: var(--voa-amarelo); border-color: var(--voa-azul); }
+  .marco .data { font-family: var(--font-display); font-size: 30px; color: var(--voa-azul); }
+  .marco.agora .data { color: var(--voa-azul); }
+  .marco .desc { font-size: 15px; color: #333; font-weight: 500; }
+  .marco .tag { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--voa-vermelho); }
+
+  /* ══════════ Quem somos / footer ══════════ */
+  .footer { background: var(--voa-azul-escuro); color: var(--voa-branco); }
+  .footer .wrap { display: flex; flex-direction: column; gap: var(--space-6); }
+  .footer h2 { font-size: clamp(28px, 3.4vw, 38px); }
+  .footer p { font-size: 16.5px; line-height: 1.65; max-width: 68ch; opacity: .9; }
+  .footer .baixo { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-5); border-top: 2px solid rgba(255,255,255,.15); padding-top: var(--space-6); font-size: 13px; opacity: .7; }
+
+  @media (max-width: 640px) {
+    .wrap { padding-left: var(--space-5); padding-right: var(--space-5); }
+    .section { padding: var(--space-8) 0; }
+    .hero-top img { width: 64px; height: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ 1. Boas-vindas ══════════ -->
+<header class="hero section">
+  <img class="hero-photo" src="assets/foto-hero.jpg" alt="">
+  <div class="hero-overlay"></div>
+  <div class="star" style="top:20px; right:-20px;">
+    <svg width="140" height="140" viewBox="0 0 100 100" style="transform:rotate(-14deg);"><path d="M50 4 L61.8 35.5 L95 37 L68.5 58 L78 91 L50 71 L22 91 L31.5 58 L5 37 L38.2 35.5 Z" fill="#FBAE04" stroke="#123A66" stroke-width="6" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="star" style="bottom:40px; right:60px;">
+    <svg width="52" height="52" viewBox="0 0 100 100" style="transform:rotate(18deg);"><path d="M50 4 L61.8 35.5 L95 37 L68.5 58 L78 91 L50 71 L22 91 L31.5 58 L5 37 L38.2 35.5 Z" fill="#E30613" stroke="#123A66" stroke-width="6" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="hero-top">
+      <img src="assets/logo-voabr-transparente.png" alt="VoaBR">
+      <span class="hero-brand">VoaBR</span>
+    </div>
+    <h1>Outubro está chegando.</h1>
+    <p class="lede">De olho nas urnas, a desinformação já começou a circular. Mas o VoaBR também está aqui, pra organizar quem quer que a verdade chegue primeiro.</p>
+    <div class="cta-row">
+      <a href="#entrar" class="btn btn-amarelo">Entrar no VoaBR →</a>
+      <a href="#defendemos" class="btn btn-branco">Ver o que defendemos</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ 2. O que somos ══════════ -->
+<section class="somos section">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--voa-verde);">Quem é o VoaBR</span>
+    <h2>O que somos?</h2>
+    <p>O VoaBR é uma mobilização digital para as eleições de 2026. Trabalhamos para fortalecer o debate político, desmontar mentiras antes que elas se espalhem e ajudar as pessoas a decidir seu voto com informação de verdade.</p>
+    <p>Queremos fazer mais do que corrigir boato mentiroso depois que ele já rodou o Brasil inteiro. Nosso objetivo é agir antes, fomentar visões críticas e mobilizar por um Brasil democrático a partir da formação política e do debate justo.</p>
+  </div>
+</section>
+
+<!-- ══════════ 3. O que defendemos ══════════ -->
+<section class="defendemos section" id="defendemos">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--voa-verde);">Nossa causa</span>
+    <h2>O que defendemos?</h2>
+    <p>Acreditamos num projeto de país democrático e progressista. Sabemos que fortalecer esse caminho passa por um debate político cuidadoso, verdadeiro e acessível a todo mundo — não só a quem já está convencido.</p>
+    <p>Por isso organizamos a mobilização em cinco frentes que tocam a vida concreta do povo brasileiro. Em cada uma delas vemos conquistas tomadas do povo brasileiro pela extrema-direita — mas sabemos que essas agendas também inspiram, e que com debate qualificado e democracia fortalecida podemos recuperar o que foi perdido e garantir ainda mais vitórias.</p>
+
+    <div class="agendas">
+      <div class="agenda-card">
+        <span class="agenda-num">Agenda 1</span>
+        <h3>Vida e cuidado</h3>
+        <p>Saúde, proteção e bem-estar de crianças, adolescentes, mulheres e famílias: a vacina do SUS, o Bolsa Família, a merenda escolar, a proteção contra a violência. O cuidado é um trabalho que sustenta a sociedade inteira.</p>
+        <span class="agenda-jogo">Em jogo: o cuidado como direito essencial e como trabalho reconhecido.</span>
+      </div>
+      <div class="agenda-card">
+        <span class="agenda-num">Agenda 2</span>
+        <h3>Educação e futuro</h3>
+        <p>Nenhuma criança e nenhum jovem é descartável. Ensino básico, técnico e superior como caminhos reais para o trabalho decente. Professores e pesquisadores valorizados, lazer e cultura como pilares da democracia.</p>
+        <span class="agenda-jogo">Em jogo: aprendizado, oportunidade concreta e o futuro do trabalho.</span>
+      </div>
+      <div class="agenda-card">
+        <span class="agenda-num">Agenda 3</span>
+        <h3>Soberania e segurança</h3>
+        <p>O Brasil é dono do próprio destino. Quem decide sobre a nossa economia, a nossa segurança e a nossa vida. Enfrentar o crime organizado e a tutela estrangeira, sem punir quem o crime já vitimou.</p>
+        <span class="agenda-jogo">Em jogo: o direito de viver sem medo e sem tutela de fora.</span>
+      </div>
+      <div class="agenda-card">
+        <span class="agenda-num">Agenda 4</span>
+        <h3>Trabalho e prosperidade</h3>
+        <p>O trabalho deve ser vetor de uma vida melhor, não só de sobrevivência: o fim da escala 6x1, os direitos de quem é plataformizado, as bets como questão de saúde pública, e uma divisão justa de tempo e renda.</p>
+        <span class="agenda-jogo">Em jogo: tempo de viver melhor e corrigir a desigualdade.</span>
+      </div>
+      <div class="agenda-card">
+        <span class="agenda-num">Agenda 5</span>
+        <h3>Território e natureza</h3>
+        <p>O impacto da mudança climática nas nossas vidas, mobilidade e infraestrutura, comida saudável, água limpa, energia, a defesa dos nossos biomas e dos povos originários — sem entregar a natureza para exploração das transnacionais.</p>
+        <span class="agenda-jogo">Em jogo: a terra, a água e os biomas que sustentam a vida de verdade.</span>
+      </div>
+    </div>
+
+    <p class="call">Se você também acredita na prioridade dessas agendas e no poder do debate democrático, vem com a gente!</p>
+  </div>
+</section>
+
+<!-- ══════════ 4. Onde estamos / cadastro ══════════ -->
+<section class="entrar section" id="entrar">
+  <div class="star" style="bottom:40px; left:20px;">
+    <svg width="90" height="90" viewBox="0 0 100 100" style="transform:rotate(10deg);"><path d="M50 4 L61.8 35.5 L95 37 L68.5 58 L78 91 L50 71 L22 91 L31.5 58 L5 37 L38.2 35.5 Z" fill="#FBAE04" stroke="#123A66" stroke-width="6" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="wrap">
+    <div style="display:flex; flex-wrap:wrap; gap:var(--space-7); align-items:center;">
+      <div style="flex:1 1 380px;">
+        <span class="eyebrow">Onde estamos</span>
+        <h2>Nossa base é o Telegram.</h2>
+        <p>Lá organizamos grupos e núcleos temáticos, com uma equipe dedicada a fazer a verdade circular e ajudar você a entender os melhores caminhos para o Brasil. Junte-se à gente.</p>
+      </div>
+      <div class="foto-card">
+        <img src="assets/foto-comunidade-2.jpg" alt="Amigos sorrindo e acenando em um parque">
+      </div>
+    </div>
+
+    <form class="cadastro-box" onsubmit="event.preventDefault(); window.open('https://t.me/Voabr_bot', '_blank');">
+      <h3>Faça seu cadastro</h3>
+
+      <div class="campo">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Como podemos te chamar?" required>
+      </div>
+
+      <div class="campo">
+        <label for="whatsapp">WhatsApp ou Telegram</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(DDD) 9 0000-0000">
+      </div>
+
+      <div class="campo">
+        <label>Qual eixo tem mais a ver com você?</label>
+        <div class="eixos">
+          <label class="eixo-opcao"><input type="radio" name="eixo" value="vida-cuidado"> Vida e cuidado</label>
+          <label class="eixo-opcao"><input type="radio" name="eixo" value="educacao-futuro"> Educação e futuro</label>
+          <label class="eixo-opcao"><input type="radio" name="eixo" value="soberania-seguranca"> Soberania e segurança</label>
+          <label class="eixo-opcao"><input type="radio" name="eixo" value="trabalho-prosperidade"> Trabalho e prosperidade</label>
+          <label class="eixo-opcao"><input type="radio" name="eixo" value="territorio-natureza"> Território e natureza</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-vermelho" style="align-self:flex-start;">Entrar no Telegram →</button>
+      <p class="cadastro-nota">Ao continuar você é levado direto pro nosso bot no Telegram, onde a conversa e o eixo escolhido acima são confirmados com você.</p>
+    </form>
+
+    <div>
+      <p style="margin:0 0 12px; font-weight:700;">Você também pode acompanhar nosso conteúdo externo:</p>
+      <div class="redes">
+        <a class="rede-link" href="https://instagram.com" target="_blank" rel="noopener">Instagram ↗</a>
+        <a class="rede-link" href="https://tiktok.com" target="_blank" rel="noopener">TikTok ↗</a>
+        <a class="rede-link" href="https://youtube.com" target="_blank" rel="noopener">YouTube ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 5. Datas importantes ══════════ -->
+<section class="datas section">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--voa-verde);">Calendário</span>
+    <h2>Datas importantes</h2>
+    <p>Onde estamos: pré-campanha — o momento de construir base de conhecimento antes da corrida eleitoral esquentar. Fique de olho nas datas.</p>
+    <div class="timeline">
+      <div class="marco agora">
+        <span class="tag">Você está aqui</span>
+        <span class="data">Pré-campanha</span>
+        <span class="desc">Construção de base e conhecimento</span>
+      </div>
+      <div class="marco">
+        <span class="data">16/08</span>
+        <span class="desc">Início oficial da campanha</span>
+      </div>
+      <div class="marco">
+        <span class="data">28/08</span>
+        <span class="desc">Início do horário eleitoral gratuito</span>
+      </div>
+      <div class="marco">
+        <span class="data">04/10</span>
+        <span class="desc">Primeiro turno</span>
+      </div>
+      <div class="marco">
+        <span class="data">25/10</span>
+        <span class="desc">Segundo turno (se houver)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 6. Quem somos ══════════ -->
+<footer class="footer section">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--voa-amarelo);">Quem somos</span>
+    <h2>1 Brasil. 1 Missão.</h2>
+    <p>O VoaBR é uma iniciativa de mobilização digital, animada por uma pequena equipe vinculada à estrutura de pré-campanha do presidente Lula, operando com autonomia editorial e foco estratégico em fortalecer o debate político democrático.</p>
+    <div class="baixo">
+      <span>© 2026 VoaBR</span>
+      <span>Participe e compartilhe — faça a diferença!</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -198,32 +198,15 @@
     display: flex; flex-direction: column; gap: var(--space-6);
   }
   .cadastro-box h3 { color: var(--voa-azul); font-size: 26px; }
-  .campo { display: flex; flex-direction: column; gap: 8px; }
-  .campo > label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--voa-cinza); }
-  .campo input[type="text"], .campo input[type="tel"] {
-    font-family: var(--font-body);
-    font-size: 16px;
-    padding: 14px 16px;
-    border-radius: var(--radius-md);
-    border: 2px solid rgba(2,91,112,.18);
-    background: var(--voa-creme);
-  }
-  .campo input:focus { outline: 3px solid var(--voa-amarelo); }
 
-  .eixos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
-  .eixo-opcao {
-    display: flex; align-items: center; gap: 10px;
-    border: 2px solid rgba(2,91,112,.18);
+  .qr-card {
+    background: var(--voa-branco);
+    border: 3px solid var(--voa-azul);
     border-radius: var(--radius-md);
-    padding: 12px 14px;
-    font-size: 14.5px;
-    font-weight: 500;
-    cursor: pointer;
+    padding: 14px;
+    box-shadow: var(--shadow-sticker);
   }
-  .eixo-opcao:has(input:checked) { border-color: var(--voa-verde); background: rgba(0,148,116,.08); }
-  .eixo-opcao input { accent-color: var(--voa-verde); width: 18px; height: 18px; }
-
-  .cadastro-nota { font-size: 13.5px; color: var(--voa-cinza); line-height: 1.5; }
+  .qr-card img { width: 150px; height: 150px; display: block; }
 
   .foto-card {
     border-radius: var(--radius-lg);
@@ -372,33 +355,19 @@
       </div>
     </div>
 
-    <form class="cadastro-box" onsubmit="event.preventDefault(); window.open('https://t.me/Voabr_bot', '_blank');">
-      <h3>Faça seu cadastro</h3>
-
-      <div class="campo">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" placeholder="Como podemos te chamar?" required>
+    <div class="cadastro-box" style="flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+      <div style="display:flex; flex-direction:column; gap:var(--space-5); flex:1 1 300px;">
+        <h3>Entre direto no Telegram</h3>
+        <p style="margin:0; font-size:16px; color:#444; line-height:1.6;">O próprio bot faz sua triagem: descobre o eixo que mais combina com você e te leva pro grupo certo. Leva menos de 1 minuto.</p>
+        <a href="https://t.me/Voabr_bot" target="_blank" rel="noopener" class="btn btn-vermelho" style="align-self:flex-start;">Entrar no Telegram →</a>
       </div>
-
-      <div class="campo">
-        <label for="whatsapp">WhatsApp ou Telegram</label>
-        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(DDD) 9 0000-0000">
-      </div>
-
-      <div class="campo">
-        <label>Qual eixo tem mais a ver com você?</label>
-        <div class="eixos">
-          <label class="eixo-opcao"><input type="radio" name="eixo" value="vida-cuidado"> Vida e cuidado</label>
-          <label class="eixo-opcao"><input type="radio" name="eixo" value="educacao-futuro"> Educação e futuro</label>
-          <label class="eixo-opcao"><input type="radio" name="eixo" value="soberania-seguranca"> Soberania e segurança</label>
-          <label class="eixo-opcao"><input type="radio" name="eixo" value="trabalho-prosperidade"> Trabalho e prosperidade</label>
-          <label class="eixo-opcao"><input type="radio" name="eixo" value="territorio-natureza"> Território e natureza</label>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:10px; flex:0 0 auto;">
+        <div class="qr-card">
+          <img src="assets/qr-telegram.png" alt="QR code para entrar no bot do VoaBR no Telegram">
         </div>
+        <span style="font-size:13px; color:var(--voa-cinza); text-align:center; max-width:200px;">Aponte a câmera do celular. Não tem o Telegram? <a href="https://telegram.org/dl" target="_blank" rel="noopener" style="color:var(--voa-azul); font-weight:700;">baixe aqui</a>.</span>
       </div>
-
-      <button type="submit" class="btn btn-vermelho" style="align-self:flex-start;">Entrar no Telegram →</button>
-      <p class="cadastro-nota">Ao continuar você é levado direto pro nosso bot no Telegram, onde a conversa e o eixo escolhido acima são confirmados com você.</p>
-    </form>
+    </div>
 
     <div>
       <p style="margin:0 0 12px; font-weight:700;">Você também pode acompanhar nosso conteúdo externo:</p>

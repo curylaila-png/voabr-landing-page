@@ -184,10 +184,13 @@
   }
 
   /* ══════════ Onde estamos / cadastro ══════════ */
-  .entrar { background: var(--voa-verde); color: var(--voa-branco); }
+  .entrar { background: var(--voa-verde); color: var(--voa-branco); position: relative; }
+  .entrar-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; z-index: 0; }
+  .entrar-overlay { position: absolute; inset: 0; background: rgba(0,58,44,.72); z-index: 0; }
   .entrar .wrap { display: flex; flex-direction: column; gap: var(--space-7); position: relative; z-index: 1; }
-  .entrar h2 { font-size: clamp(32px, 4vw, 48px); }
+  .entrar h2 { font-size: clamp(32px, 4vw, 48px); text-shadow: 0 2px 12px rgba(0,0,0,.25); }
   .entrar > .wrap > p { font-size: 18px; max-width: 62ch; line-height: 1.6; opacity: .95; }
+  .telegram-icon { width: 1em; height: 1em; flex-shrink: 0; }
 
   .cadastro-box {
     background: var(--voa-branco);
@@ -218,16 +221,6 @@
     box-shadow: var(--shadow-sticker);
   }
   .qr-card img { width: 150px; height: 150px; display: block; }
-
-  .foto-card {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sticker-lg);
-    transform: rotate(-1.4deg);
-    max-width: 420px;
-    border: 6px solid var(--voa-branco);
-  }
-  .foto-card img { width: 100%; height: 280px; object-fit: cover; object-position: center 25%; display: block; }
 
   .redes { display: flex; gap: var(--space-5); flex-wrap: wrap; align-items: center; }
   .rede-link { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; text-decoration: none; color: var(--voa-branco); opacity: .92; }
@@ -351,26 +344,29 @@
 
 <!-- ══════════ 4. Onde estamos / cadastro ══════════ -->
 <section class="entrar section" id="entrar">
+  <img class="entrar-photo" src="assets/foto-comunidade-3.jpg" alt="">
+  <div class="entrar-overlay"></div>
   <div class="star" style="bottom:40px; left:20px;">
     <svg width="90" height="90" viewBox="0 0 100 100" style="transform:rotate(10deg);"><path d="M50 4 L61.8 35.5 L95 37 L68.5 58 L78 91 L50 71 L22 91 L31.5 58 L5 37 L38.2 35.5 Z" fill="#FBAE04" stroke="#123A66" stroke-width="6" stroke-linejoin="round"/></svg>
   </div>
   <div class="wrap">
-    <div style="display:flex; flex-wrap:wrap; gap:var(--space-7); align-items:center;">
-      <div style="flex:1 1 380px;">
-        <span class="eyebrow">Onde estamos</span>
-        <h2>Nossa base é o Telegram.</h2>
-        <p>Lá organizamos grupos e núcleos temáticos, com uma equipe dedicada a fazer a verdade circular e ajudar você a entender os melhores caminhos para o Brasil. Junte-se à gente.</p>
-      </div>
-      <div class="foto-card">
-        <img src="assets/foto-comunidade-3.jpg" alt="Mãos em círculo segurando celulares, com o logo do VoaBR ao centro">
-      </div>
+    <div>
+      <span class="eyebrow">Onde estamos</span>
+      <h2>Nossa base é o Telegram.</h2>
+      <p>Lá organizamos grupos e núcleos temáticos, com uma equipe dedicada a fazer a verdade circular e ajudar você a entender os melhores caminhos para o Brasil. Junte-se à gente.</p>
     </div>
 
     <div class="cadastro-box" style="flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between;">
       <div style="display:flex; flex-direction:column; gap:var(--space-5); flex:1 1 300px;">
-        <h3>Entre direto no Telegram</h3>
+        <h3 style="display:flex; align-items:center; gap:10px;">
+          <svg class="telegram-icon" style="width:30px; height:30px;" viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="120" fill="#26A5E4"/><path fill="#fff" d="M181.61 68.32 154.4 187.8c-2.06 9.16-7.48 11.42-15.16 7.11l-41.86-30.86-20.2 19.44c-2.24 2.24-4.12 4.12-8.44 4.12l3.02-42.9L166 90.6c3.53-3.14-.77-4.88-5.47-1.74l-96.4 60.7-41.5-13c-9.03-2.82-9.2-9.03 1.88-13.36L169.5 55.94c7.53-2.82 14.12 1.79 12.11 12.38Z"/></svg>
+          Entre direto no Telegram
+        </h3>
         <p class="destaque-amarelo">O próprio bot faz sua triagem: descobre o eixo que mais combina com você e te leva pro grupo certo. Leva menos de 1 minuto.</p>
-        <a href="https://t.me/Voabr_bot" target="_blank" rel="noopener" class="btn btn-vermelho" style="align-self:flex-start;">Entrar no Telegram →</a>
+        <a href="https://t.me/Voabr_bot" target="_blank" rel="noopener" class="btn btn-vermelho" style="align-self:flex-start;">
+          <svg class="telegram-icon" viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="120" fill="#fff"/><path fill="#E30613" d="M181.61 68.32 154.4 187.8c-2.06 9.16-7.48 11.42-15.16 7.11l-41.86-30.86-20.2 19.44c-2.24 2.24-4.12 4.12-8.44 4.12l3.02-42.9L166 90.6c3.53-3.14-.77-4.88-5.47-1.74l-96.4 60.7-41.5-13c-9.03-2.82-9.2-9.03 1.88-13.36L169.5 55.94c7.53-2.82 14.12 1.79 12.11 12.38Z"/></svg>
+          Entrar no Telegram →
+        </a>
       </div>
       <div style="display:flex; flex-direction:column; align-items:center; gap:10px; flex:0 0 auto;">
         <div class="qr-card">
